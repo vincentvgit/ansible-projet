@@ -1,0 +1,19 @@
+- name: Install MySQL
+  user: vincent
+  hosts: mysqlserver
+  become: true
+  become_user: root
+  vars:
+    MySQL_root_pass: Azertyuiop123
+  tasks:
+    - name: Test installation
+      apt:
+        name: "{{ item }}"
+        state: present
+        force: yes
+        update_cache: yes
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
+      with_items:
+        - mysql-server
+        - mysql-client

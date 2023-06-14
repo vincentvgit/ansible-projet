@@ -1,0 +1,13 @@
+
+- name: install LAMP Stack
+  hosts: all
+  user: vincent
+  become: true
+  become_user: root
+  gather_facts: false
+
+- name: Include Apache
+  import_playbook: apache.yaml
+
+- name: Include MySQL
+  import_playbook: mysql.yaml

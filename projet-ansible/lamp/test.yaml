@@ -1,0 +1,18 @@
+---
+- name: WEB SERVER
+  hosts: websrv
+  become: yes
+  vars_files:
+    - roles/apache.yaml
+
+  roles:
+    - role: apache.yaml
+
+- name: DATABASE SERVER
+  hosts: mysql
+  become: yes
+  vars_files:
+    - roles/mysql.yaml
+
+  roles:
+    - role: mysql.yaml

@@ -1,0 +1,38 @@
+- name: install apache2 and php
+  remote_user: vincent
+  hosts: websrv
+  become: yes
+ # become_user: root
+  gather_facts: true
+  tasks:
+    - name: Install apache2 package
+      package:
+        name: apache2
+        state: present
+
+    - name: Install php package
+      package:
+        name: php
+        state: present
+
+
+- name: Install MySQL
+  user: vincent
+  hosts: mysqlserver
+  become: yes
+  #become_user: root
+  vars:
+    MySQL_root_pass: Azertyuiop123
+  tasks:
+    - name: Test installation
+      apt:
+        name: "{{ item }}"
+        state: present
+        force: yes
+        update_cache: yes
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
+      with_items:
+        - mysql-server
+        - mysql-client
+

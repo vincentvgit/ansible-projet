@@ -1,0 +1,16 @@
+- name: install apache2 and php
+  remote_user: azureuser
+  hosts: webserver
+  become: yes
+ # become_user: root
+  gather_facts: true
+  tasks:
+    - name: Install apache2 package
+      package:
+        name: apache2
+        state: present
+
+    - name: Install php package
+      package:
+        name: php
+        state: present
