@@ -1,19 +1,17 @@
 pipeline {
-  agent any
-
-  stages {
-    stage('Checkout') {
-      steps {
-        git 'https://github.com/vincentvgit/ansible-projet.git'
-      }
-    }
-
-    stage('ansible job') {
-      steps {
-        withCredentials([azureServicePrincipal('azure')]) {
-          sh 'ansible-playbook roles/* -i mon_inventaire.ini'
+    agent any
+    stages {
+        stage ("SCM checkout") {
+            steps {
+               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/vincentvgit/ansible-projet.git']])
+                
+            }
         }
-      }   
-  }
-  }
+        stage(" execute Ansible") {
+           steps {
+                ansiblePlaybook credentialsId: 'ssh-vincent', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'hosts', playbook: 'roles/lamp.yaml'
+            }    
+        }   
+
+   }
 }
