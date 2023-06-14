@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+    stages {
+        stage ("SCM checkout") {
+            steps {
+               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/vincentvgit/ansible-projet.git']])
+                
+            }
+        }
+        stage(" execute Ansible") {
+           steps {
+                ansiblePlaybook credentialsId: 'ssh-vincent', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'hosts', playbook: 'roles/lamp.yaml'
+            }    
+        }   
+
+   }
+}
