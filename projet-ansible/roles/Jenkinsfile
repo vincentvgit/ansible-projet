@@ -9,7 +9,7 @@ pipeline {
         }
         stage(" execute Ansible") {
            steps {
-                ansiblePlaybook credentialsId: 'ssh-vincent', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/var/lib/jenkins/workspace/ansible/projet-ansible/mon-inventaire', playbook: '/var/lib/jenkins/workspace/ansible/projet-ansible/roles/lamp.yaml'
+                ansiblePlaybook credentialsId: 'ssh-vincent', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/var/lib/jenkins/workspace/ansible/projet-ansible/mon-inventaire.ini', playbook: '/var/lib/jenkins/workspace/ansible/projet-ansible/roles/lamp.yaml'
             }    
         }   
 
