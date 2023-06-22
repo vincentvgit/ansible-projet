@@ -1,7 +1,7 @@
 ---
 - name: WEB SERVER
   hosts: websrv
-  become: true
+  become: yes
   vars_files:
     - roles/apache.yaml
 
